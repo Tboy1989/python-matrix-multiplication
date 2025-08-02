@@ -6,6 +6,7 @@
 # GitHub tokens and sensitive data
 *.token
 secrets.json
+mcp.json
 
 # Python
 __pycache__/
@@ -66,6 +67,7 @@ Thumbs.db
 # Logs
 *.log
 logs/
+*.log.*
 
 # Temporary files
 *.tmp

@@ -14,17 +14,25 @@ This project provides a pure Python implementation of matrix multiplication usin
 - **NumPy Comparison**: Shows equivalent operations using NumPy (when available)
 - **100% Test Coverage**: Extensive pytest suite covering all edge cases
 - **Multiple Data Types**: Supports integers, floats, negative numbers, and zero values
+- **Comprehensive Logging**: Advanced logging system with multiple output formats and levels
 - **GitHub MCP Integration**: Enhanced development workflow with GitHub repository management
 
 ## 📁 Project Structure
 
 ```
-mcp-demo/
-├── matrix_multiplication.py      # Main implementation
+python-matrix-multiplication/
+├── matrix_multiplication.py      # Main implementation with logging
 ├── test_matrix_multiplication.py # Comprehensive test suite
+├── logger_config.py              # Logging configuration module
+├── test_logger.py                # Logger unit tests
+├── demo_logging.py               # Logging demonstration script
 ├── mcp.json                      # MCP server configuration
 ├── GITHUB_MCP_SETUP.md          # GitHub MCP setup guide
 ├── .gitignore                    # Git ignore patterns
+├── logs/                         # Log files directory (auto-created)
+│   ├── matrix_multiplication.log # General application logs
+│   ├── matrix_multiplication_debug.log # Detailed debug logs
+│   └── matrix_multiplication_errors.log # Error-only logs
 └── README.md                    # This file
 ```
 
@@ -129,13 +137,71 @@ For matrix multiplication `A × B = C`:
 - ✅ Identity matrices
 - ✅ Zero matrices
 
+## 📊 Logging System
+
+This project includes a comprehensive logging system that tracks operations, performance, and errors.
+
+### Logging Features
+
+- **Multiple Log Levels**: DEBUG, INFO, WARNING, ERROR, CRITICAL
+- **Colored Console Output**: Easy-to-read colored terminal output
+- **File Logging**: Automatic log file generation with rotation
+- **Structured Logging**: Detailed operation tracking and performance metrics
+- **Error Tracking**: Dedicated error log file for troubleshooting
+
+### Log Files
+
+The logging system automatically creates three log files in the `logs/` directory:
+
+1. **`matrix_multiplication.log`** - General application logs (INFO and above)
+2. **`matrix_multiplication_debug.log`** - Detailed debug information (all levels)
+3. **`matrix_multiplication_errors.log`** - Error and critical messages only
+
+### Using the Logger
+
+```python
+from logger_config import get_logger, configure_logging
+
+# Configure logging (optional - auto-configured on first use)
+configure_logging(level="INFO", log_dir="logs")
+
+# Get a logger instance
+logger = get_logger("my_module")
+
+# Log at different levels
+logger.debug("Detailed debugging information")
+logger.info("General information")
+logger.warning("Warning message")
+logger.error("Error occurred")
+logger.critical("Critical error")
+```
+
+### Logging Demo
+
+Run the logging demonstration to see all features:
+
+```bash
+python3 demo_logging.py
+```
+
+This will show:
+- Different log levels in action
+- Matrix operation logging
+- Performance logging with timing
+- Error handling and logging
+- Log file content preview
+
 ## 🧪 Testing
 
 ### Running Tests
 
 ```bash
-# Run all tests
+# Run all tests (including logger tests)
+pytest -v
+
+# Run specific test files
 pytest test_matrix_multiplication.py -v
+pytest test_logger.py -v
 
 # Run tests with coverage report
 pytest test_matrix_multiplication.py --cov=matrix_multiplication --cov-report=term-missing
