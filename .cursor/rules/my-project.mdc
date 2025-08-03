@@ -1,0 +1,144 @@
+---
+description: "Python Matrix Multiplication Project - Educational implementation with comprehensive logging and 100% test coverage"
+globs: ["*.py", "*.md", "*.json", "*.txt", "*.log", "*.yml", "*.yaml"]
+alwaysApply: true
+---
+
+# Python Matrix Multiplication Project Rules
+
+## Project Overview
+This is an educational Python project implementing matrix multiplication with comprehensive logging, 100% test coverage, and MCP integration. The focus is on clean, well-documented code that serves as a learning resource.
+
+## Code Style & Quality Standards
+
+### Python Standards
+- Follow PEP 8 strictly with 4-space indentation
+- Keep line length under 88 characters (Black formatter compatible)
+- Use type hints for all function parameters and return values
+- Write comprehensive docstrings using Google style format
+- Use descriptive variable names (e.g., `matrix1`, `matrix2`, `result_matrix`)
+- Include shebang `#!/usr/bin/env python3` in executable scripts
+
+### Documentation Requirements
+- Every function must have complete docstrings with Args, Returns, and Raises sections
+- Include usage examples in docstrings for public functions
+- Document time/space complexity where relevant
+- Maintain clear README.md with installation, usage, and examples
+- Add inline comments for complex logic or mathematical operations
+
+## Logging Architecture
+
+### Centralized Logging System
+- **Always use `logger_config.py`** for all logging configuration
+- Get loggers via `get_logger(name)` function, not directly from logging module
+- Use the `@log_matrix_operation` decorator for matrix operation functions
+- Follow the established three-tier logging structure:
+  - General logs: `matrix_multiplication.log` (INFO+)
+  - Debug logs: `matrix_multiplication_debug.log` (DEBUG+)
+  - Error logs: `matrix_multiplication_errors.log` (ERROR+)
+
+### Logging Best Practices
+- Use appropriate log levels:
+  - `DEBUG`: Detailed flow, dimensions, intermediate calculations
+  - `INFO`: Operation start/completion, results summary
+  - `WARNING`: Recoverable issues, performance concerns
+  - `ERROR`: Validation failures, exceptions
+  - `CRITICAL`: System-level failures
+- Include context in messages: matrix dimensions, operation types, timing
+- Log before and after major operations
+- Use f-strings for log message formatting: `f"Matrix dimensions: A({rows1}x{cols1})"`
+
+## Function Design Patterns
+
+### Core Function Structure
+```python
+def function_name(param1: type, param2: type) -> return_type:
+    """
+    Brief description
+    
+    Args:
+        param1: Description with type info
+        param2: Description with type info
+    
+    Returns:
+        Description of return value
+    
+    Raises:
+        ValueError: When and why this is raised
+        TypeError: When and why this is raised
+    """
+    logger = get_logger("module_name")
+    
+    # Input validation first
+    if validation_condition:
+        error_msg = "Clear error message"
+        logger.error(error_msg)
+        raise ValueError(error_msg)
+    
+    # Log operation start
+    logger.info("Starting operation description")
+    
+    # Core logic here
+    
+    # Log completion
+    logger.info("Operation completed successfully")
+    return result
+```
+
+### Matrix Function Standards
+- Validate matrix dimensions early: check for empty matrices, dimension compatibility
+- Use nested list comprehensions for matrix initialization: `[[0 for _ in range(cols)] for _ in range(rows)]`
+- Log matrix dimensions and operation complexity
+- Return consistent data structures (list of lists)
+- Handle edge cases: single element matrices, empty matrices
+
+## Testing Requirements
+
+### Test Coverage Standards
+- Maintain **100% code coverage** - no exceptions
+- Write tests before implementing new features (TDD encouraged)
+- Use pytest framework with class-based test organization
+- Follow naming convention: `test_functionality_description`
+
+### Test Categories Required
+```python
+class TestFunctionName:
+    def test_basic_functionality(self):
+        """Test standard use cases"""
+        
+    def test_edge_cases(self):
+        """Test boundaries: 1x1, empty, large matrices"""
+        
+    def test_error_conditions(self):
+        """Test invalid inputs and error handling"""
+        
+    def test_data_types(self):
+        """Test int, float, negative, zero values"""
+```
+
+### Test Data Patterns
+- Use meaningful test data that's easy to verify manually
+- Include negative numbers, floats, zeros, and edge cases
+- Test various matrix sizes: 1x1, 2x2, 2x3, 3x2, larger matrices
+- Verify both result correctness and expected exceptions
+
+## Error Handling Standards
+
+### Validation Patterns
+- Check matrix dimensions before operations
+- Validate input types (list of lists)
+- Ensure non-empty matrices where required
+- Use meaningful exception types:
+  - `ValueError`: For dimension mismatches, invalid values
+  - `TypeError`: For wrong input types
+  - `IndexError`: For array access issues
+
+### Error Message Standards
+- Provide clear, user-friendly messages
+- Include actual vs expected values
+- Use consistent format: `"Cannot multiply matrices: {rows1}x{cols1} and {rows2}x{cols2}"`
+- Log errors with sufficient context for debugging
+
+## Project Structure Guidelines
+
+### File Organization
